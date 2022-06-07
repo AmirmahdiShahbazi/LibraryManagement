@@ -1,3 +1,7 @@
+//Amirmahdi Shahbazi 400101211
+//Alireza Dehghan Ashkezari *******
+
+
 import java.util.Scanner;
 
 public class LibraryManagement {
@@ -11,7 +15,8 @@ public class LibraryManagement {
 	public static void main(String[] args) {
 		
 		try {
-			Book.menu();
+			Member member=new Member();
+			member.menu();
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

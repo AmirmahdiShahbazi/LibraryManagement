@@ -12,9 +12,9 @@ public class Book {
 	private int price;
 	private String format;
 	private int size;
-	private static int numberOfBooks;
-	private static String str="" ;
-	private static String specifications;
+	private int numberOfBooks;	
+	private String specifications;
+	private ArrayList list=new ArrayList();
 	
 	
 	
@@ -66,10 +66,11 @@ public class Book {
 	 
 	   //TODO add new book
 	
-	 static ArrayList list=new ArrayList();
-	 public static void addNewBook() throws Exception {
+	
+	 public  void addNewBook() throws Exception {
+		 	String str="";
 			gettinNumberOfBooks();				
-			Book b[]=new Book[numberOfBooks];
+			Book book[]=new Book[numberOfBooks];
 			for(int i=0; i<numberOfBooks;i++) {								
 				Scanner inp=new Scanner(System.in);
 				System.out.print("enter Book name: ");
@@ -92,16 +93,16 @@ public class Book {
 					System.out.print("enter size: ");
 					 size=inp.nextInt();			
 				}
-				b[i]=new Book(name,author,year,jsbn,inventory,price,format,size);
-				specifications=b[i].getName()+" "+b[i].getAuthor()+" "+b[i].getYear()+" "+b[i].getJsbn()+" "+b[i].getInventory()
-						+" "+b[i].getPrice()+" "+b[i].getFormat()+" "+b[i].getSize();				
-				System.out.println(specifications);
-				
-				
+				book[i]=new Book(name,author,year,jsbn,inventory,price,format,size);
+				specifications=book[i].getName()+" "+book[i].getAuthor()+" "+book[i].getYear()+" "+book[i].getJsbn()+" "+book[i].getInventory()
+						+" "+book[i].getPrice()+" "+book[i].getFormat()+" "+book[i].getSize();				
+												
 				if(str.contains(specifications))
 				{
 					System.out.println("specifications already registered\n"+ "you can chnge specifications by edit option ");
 				}
+				else
+					System.out.println(specifications);
 				str += specifications;
 				list.add (specifications);
 				
@@ -114,7 +115,7 @@ public class Book {
 	
 	
 	//TODO number of Books
-	public static int gettinNumberOfBooks() {		
+	public  int gettinNumberOfBooks() {		
 		Scanner inp=new Scanner(System.in);
 		System.out.print("enter number of Books: ");
 		numberOfBooks=inp.nextInt();
@@ -123,14 +124,13 @@ public class Book {
 	
 	
 	//TODO edit specifications
-	public static void editOption() throws Exception {
+	public  void editInformation() throws Exception {
 		Scanner inp=new Scanner(System.in);
 		System.out.print("enter name or JSBN: ");
 		String edit=inp.next();
 		for(int i=0;i<numberOfBooks;i++) {
 		if(((String) list.get(i)).contains(edit)) {				
-				System.out.println(list.get(i));
-				
+				System.out.println(list.get(i));				
 				System.out.print("enter Book name: ");
 				String name=inp.next();
 				System.out.print("enter authors name: ");
@@ -158,22 +158,20 @@ public class Book {
 			
 			
 		}	
-		else
-			System.out.println("specifications not found.");
+		
 	
 		}
 	}
 				
 	//TODO search book			
-	public static void searchBook() {
+	public  void searchBook() {
 		Scanner inp=new Scanner(System.in);
 		System.out.print("enter name or JSBN: ");
 		String search=inp.next();
 		for(int i=0;i<numberOfBooks;i++) {
 			if(((String) list.get(i)).contains(search)) 
 				System.out.println(list.get(i));
-			else
-				System.out.println("not found.");
+			
 			
 		}	
 		
@@ -189,7 +187,7 @@ public class Book {
 	
 			
 		//TODO delete book
-	public static void deleteBook() {
+	public  void deleteBook() {
 		Scanner inp=new Scanner(System.in);
 		System.out.print("enter name or JSBN: ");
 		String delete=inp.next();
@@ -208,21 +206,19 @@ public class Book {
 		
 	}
 	//TODO show books
-	public static void showBooks() {
+	public void showBooks() {
 		for(int i=0;i<numberOfBooks;i++) {
 			System.out.println(list.get(i));
 		}
-		
-		
-		
+	
 	}
 	
 	//TODO menu
 	
-	public static void menu() throws Exception {
+	public void menu() throws Exception {
 		while(true) {
 			System.out.print("1_add new book\n" + "2_edit book\n"+ "3_delete book\n"
-		+"4_search book" + "5_show books\n" + "enter your choose: ");
+		+"4_search book\n" + "5_show books\n" + "enter your choose: " );
 			Scanner inp=new Scanner(System.in);
 			int choose=inp.nextInt();
 			switch(choose) {
@@ -230,7 +226,7 @@ public class Book {
 					addNewBook();
 					break;
 				case 2 :
-					editOption();
+					editInformation();
 					break;
 				case 3:
 					deleteBook();
@@ -241,7 +237,8 @@ public class Book {
 				case 5:
 					showBooks();
 					break;
-			}
+					
+			 }
 					
 					
 			
