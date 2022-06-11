@@ -11,7 +11,7 @@ public class Book {
 	private int inventory;
 	private int price;
 	private String format;
-	private int size;
+	private String size;
 	private int numberOfBooks;	
 	private String specifications;
 	private ArrayList list=new ArrayList();
@@ -23,7 +23,7 @@ public class Book {
 		
 	}
 	//TODO Setter 
-	public Book(String name,String author,int year,int jsbn,int inventory,int price ,String format,int size) {
+	public Book(String name,String author,int year,int jsbn,int inventory,int price ,String format,String size) {
 		this.name=name;
 		this.author=author;
 		this.year=year;
@@ -60,7 +60,7 @@ public class Book {
 	 public String getFormat() {
 		 return this.format;
 	 }
-	 public int getSize() {
+	 public String getSize() {
 		 return this.size;		 
 	 }
 	 
@@ -87,11 +87,11 @@ public class Book {
 				int price=inp.nextInt();
 				System.out.print("enter format: ");
 				String format=inp.next();
-				int size = 0;
+				String size = "";
 				if(format.equals("pdf"))
 				{
 					System.out.print("enter size: ");
-					 size=inp.nextInt();			
+					 size=inp.next();			
 				}
 				book[i]=new Book(name,author,year,jsbn,inventory,price,format,size);
 				specifications=book[i].getName()+" "+book[i].getAuthor()+" "+book[i].getYear()+" "+book[i].getJsbn()+" "+book[i].getInventory()
@@ -104,7 +104,7 @@ public class Book {
 				else
 					System.out.println(specifications);
 				str += specifications;
-				list.add (specifications);
+				list.add(specifications);
 				
 				}
 			
@@ -145,11 +145,12 @@ public class Book {
 				int price=inp.nextInt();
 				System.out.print("enter format: ");
 				String format=inp.next();
-				int size = 0;
+				String size= "";
 				if(format.equals("pdf"))
-				{
+				{   
+					
 					System.out.print("enter size: ");
-					 size=inp.nextInt();			
+					 size=inp.next();			
 				}
 				Book b=new Book(name,author,year,jsbn,inventory,price,format,size);
 				specifications=b.getName()+" "+b.getAuthor()+" "+b.getYear()+" "+b.getJsbn()+" "+b.getInventory()
@@ -218,7 +219,7 @@ public class Book {
 	public void menu() throws Exception {
 		while(true) {
 			System.out.print("1_add new book\n" + "2_edit book\n"+ "3_delete book\n"
-		+"4_search book\n" + "5_show books\n" + "enter your choose: " );
+		+"4_search book\n" + "5_show books\n" + "enter your choice: " );
 			Scanner inp=new Scanner(System.in);
 			int choose=inp.nextInt();
 			switch(choose) {
@@ -239,19 +240,8 @@ public class Book {
 					break;
 					
 			 }
-					
-					
-			
-			
-			
-			
-			
-			
-			
+		
 		}
-	
-		
-		
 		
 	}
 	
