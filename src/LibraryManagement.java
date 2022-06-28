@@ -1,7 +1,3 @@
-//Amirmahdi Shahbazi 400101211
-//Alireza Dehghan Ashkezari *******
-
-
 import java.util.Scanner;
 
 public class LibraryManagement {
