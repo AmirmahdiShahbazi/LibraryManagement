@@ -1,251 +1,263 @@
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Scanner;
 
-
-
 public class Book {
-	private String name;
-	private String author;
-	private int year;
-	private int jsbn;
-	private int inventory;
-	private int price;
-	private String format;
-	private String size;
-	private int numberOfBooks;	
-	private String specifications;
-	private ArrayList list=new ArrayList();
-	
-	
-	
-	
-	public Book() {
-		
-	}
-	//TODO Setter 
-	public Book(String name,String author,int year,int jsbn,int inventory,int price ,String format,String size) {
-		this.name=name;
-		this.author=author;
-		this.year=year;
-		this.jsbn=jsbn;
-		this.inventory=inventory;
-		this.price=price;
-		this.format=format;
-		this.size=size;
-	
-	}
-	 	 
-	//TODO getter methods
-	 
-	 public  String getName() {
-		 return this.name;
-	 }
-	 public String getAuthor() {
-		 return this.author;
-	 }
-	 public int getYear() {
-		 return this.year;		 
-		 
-	 }
-	 public int getJsbn() {
-		 return this.jsbn;		 
-	 }
-	 public int getInventory() {
-		 return this.inventory;
-	 }
-	 public int getPrice() {
-		 
-		 return this.price;
-	 }
-	 public String getFormat() {
-		 return this.format;
-	 }
-	 public String getSize() {
-		 return this.size;		 
-	 }
-	 
-	   //TODO add new book
-	
-	
-	 public  void addNewBook() throws Exception {
-		 	String str="";
-			gettinNumberOfBooks();				
-			Book book[]=new Book[numberOfBooks];
-			for(int i=0; i<numberOfBooks;i++) {								
-				Scanner inp=new Scanner(System.in);
-				System.out.print("enter Book name: ");
-				String name=inp.next();
-				System.out.print("enter authors name: ");
-				String author=inp.next();
-				System.out.print("enter year of publication: ");
-				int year=inp.nextInt();
-				System.out.print("enter JSBN: ");
-				int jsbn=inp.nextInt();
-				System.out.print("enter Number of inventory: ");
-				int inventory=inp.nextInt();
-				System.out.print("enter price: ");
-				int price=inp.nextInt();
-				System.out.print("enter format: ");
-				String format=inp.next();
-				String size = "";
-				if(format.equals("pdf"))
-				{
-					System.out.print("enter size: ");
-					 size=inp.next();			
-				}
-				book[i]=new Book(name,author,year,jsbn,inventory,price,format,size);
-				specifications=book[i].getName()+" "+book[i].getAuthor()+" "+book[i].getYear()+" "+book[i].getJsbn()+" "+book[i].getInventory()
-						+" "+book[i].getPrice()+" "+book[i].getFormat()+" "+book[i].getSize();				
-												
-				if(str.contains(specifications))
-				{
-					System.out.println("specifications already registered\n"+ "you can chnge specifications by edit option ");
-				}
-				else
-					System.out.println(specifications);
-				str += specifications;
-				list.add(specifications);
-				
-				}
-			
-				}
-		
-		
+	static Scanner input = new Scanner(System.in);
 
-	
-	
-	//TODO number of Books
-	public  int gettinNumberOfBooks() {		
-		Scanner inp=new Scanner(System.in);
-		System.out.print("enter number of Books: ");
-		numberOfBooks=inp.nextInt();
-		return numberOfBooks;
+	protected String name;
+	protected String author;
+	protected int year;
+	protected String isbn;
+	private int inventory;
+	protected int pages;
+	protected int price;
+
+	public Book() {
+
 	}
-	
-	
-	//TODO edit specifications
-	public  void editInformation() throws Exception {
-		Scanner inp=new Scanner(System.in);
-		System.out.print("enter name or JSBN: ");
-		String edit=inp.next();
-		for(int i=0;i<numberOfBooks;i++) {
-		if(((String) list.get(i)).contains(edit)) {				
-				System.out.println(list.get(i));				
-				System.out.print("enter Book name: ");
-				String name=inp.next();
-				System.out.print("enter authors name: ");
-				String author=inp.next();
-				System.out.print("enter year of publication: ");
-				int year=inp.nextInt();
-				System.out.print("enter JSBN: ");
-				int jsbn=inp.nextInt();
-				System.out.print("enter Number of inventory: ");
-				int inventory=inp.nextInt();
-				System.out.print("enter price: ");
-				int price=inp.nextInt();
-				System.out.print("enter format: ");
-				String format=inp.next();
-				String size= "";
-				if(format.equals("pdf"))
-				{   
-					
-					System.out.print("enter size: ");
-					 size=inp.next();			
-				}
-				Book b=new Book(name,author,year,jsbn,inventory,price,format,size);
-				specifications=b.getName()+" "+b.getAuthor()+" "+b.getYear()+" "+b.getJsbn()+" "+b.getInventory()
-						+" "+b.getPrice()+" "+b.getFormat()+" "+b.getSize();				
-				System.out.println(specifications);
-			
-			
-		}	
-		
-	
-		}
+
+	public Book(String name, String author, int year, String isbn, int inventory, int pages, int price) {
+		this.name = name;
+		this.author = author;
+		this.year = year;
+		this.isbn = isbn;
+		this.inventory = inventory;
+		this.pages = pages;
+		this.price = price;
 	}
-				
-	//TODO search book			
-	public  void searchBook() {
-		Scanner inp=new Scanner(System.in);
-		System.out.print("enter name or JSBN: ");
-		String search=inp.next();
-		for(int i=0;i<numberOfBooks;i++) {
-			if(((String) list.get(i)).contains(search)) 
-				System.out.println(list.get(i));
-			
-			
-		}	
-		
-		
-		
-		
+
+	public void setName(String name) {
+		this.name = name;
 	}
-			
-			
-		
-		
-		
-	
-			
-		//TODO delete book
-	public  void deleteBook() {
-		Scanner inp=new Scanner(System.in);
-		System.out.print("enter name or JSBN: ");
-		String delete=inp.next();
-		for(int i=0;i<numberOfBooks;i++) {
-			if(((String) list.get(i)).contains(delete)) {
-				System.out.println(list.get(i));
-				System.out.print("are you sure?(yes or no)? ");
-				String answer=inp.next();
-				if(answer.equals("yes"))
-					list.remove(i);
+
+	public void setAuthor(String author) {
+		this.author = author;
+	}
+
+	public void setYear(int year) {
+		this.year = year;
+	}
+
+	public void setIsbn(String isbn) {
+		this.isbn = isbn;
+	}
+
+	public void setInventory(int inventory) {
+		this.inventory = inventory;
+	}
+
+	public void setPages(int pages) {
+		this.pages = pages;
+	}
+
+	public void setPrice(int price) {
+		this.price = price;
+	}
+
+	@Override
+	public String toString() {
+		String output = String.format("Book name: %s \nAuthor name: %s \nYear of publication: %d \nISBN number: %s \n"
+				+ "Book inventory: %d \nBook pages: %d \nBook price: %d",
+				name, author, year, isbn, inventory, pages, price);
+		return output;
+	}
+
+	// static method
+	public static int searchBook(ArrayList<Book> books, String search) {
+
+		for (int i = 0; i < books.size(); i++) {
+			String name = books.get(i).name.toLowerCase();
+			String ISBN = books.get(i).isbn;
+
+			if (name.equals(search.toLowerCase()) || ISBN.equals(search)) {
+				return i;
 			}
-		
-		
-		
-	}
-		
-	}
-	//TODO show books
-	public void showBooks() {
-		for(int i=0;i<numberOfBooks;i++) {
-			System.out.println(list.get(i));
 		}
-	
+
+		return -1;
 	}
-	
-	//TODO menu
-	
-	public void menu() throws Exception {
-		while(true) {
-			System.out.print("1_add new book\n" + "2_edit book\n"+ "3_delete book\n"
-		+"4_search book\n" + "5_show books\n" + "enter your choice: " );
-			Scanner inp=new Scanner(System.in);
-			int choose=inp.nextInt();
-			switch(choose) {
-				case 1 :
-					addNewBook();
+
+	public static void addBook(ArrayList<Book> books) throws Exception {
+		System.out.print("\n\n");
+		input.nextLine();
+		System.out.print("Book name: ");
+		String name = input.nextLine();
+
+		System.out.print("Author name: ");
+		String author = input.nextLine();
+
+		System.out.print("Year of publication: ");
+		int year = input.nextInt();
+
+		System.out.print("ISBN number: ");
+		String isbn = input.next();
+
+		System.out.print("Book inventory: ");
+		int inventory = input.nextInt();
+
+		System.out.print("Book pages: ");
+		int pages = input.nextInt();
+
+		System.out.print("Book price: ");
+		int price = input.nextInt();
+
+		if (searchBook(books, name) == -1) {
+			Book b1 = new Book(name, author, year, isbn, inventory, pages, price);
+			books.add(b1);
+
+			System.out.print("\n");
+			System.out.print("The book was added");
+			Thread.sleep(3000);
+		} else {
+			System.out.print("\n");
+			System.out.print("This book exists");
+			Thread.sleep(3000);
+		}
+	}
+
+	public static void editBook(ArrayList<Book> books) throws Exception {
+		System.out.print("\n\n");
+		input.nextLine();
+		System.out.print("Enter name or ISBN of book: ");
+		String search = input.nextLine();
+		int index = searchBook(books, search);
+
+		if (index > -1) {
+			System.out.print("\n\n");
+			System.out.println(books.get(index).toString());
+
+			System.out.print("\n");
+			System.out.print("New book name: ");
+			books.get(index).setName(input.nextLine());
+
+			System.out.print("New author name: ");
+			books.get(index).setAuthor(input.nextLine());
+
+			System.out.print("New year of publication: ");
+			books.get(index).setYear(input.nextInt());
+
+			System.out.print("New ISBN number: ");
+			books.get(index).setIsbn(input.next());
+
+			System.out.print("New book inventory: ");
+			books.get(index).setInventory(input.nextInt());
+
+			System.out.print("New book pages: ");
+			books.get(index).setPages(input.nextInt());
+
+			System.out.print("New book price: ");
+			books.get(index).setPrice(input.nextInt());
+
+			System.out.print("\n");
+			System.out.print("The book was updated");
+			Thread.sleep(3000);
+		} else {
+			System.out.print("\n");
+			System.out.print("Oops the book was not found");
+			Thread.sleep(3000);
+		}
+	}
+
+	public static void deleteBook(ArrayList<Book> books) throws Exception {
+		System.out.print("\n\n");
+		input.nextLine();
+		System.out.print("Enter name or ISBN of book: ");
+		String search = input.nextLine();
+		int index = searchBook(books, search);
+
+		if (index > -1) {
+			System.out.print("\n\n");
+			System.out.println(books.get(index).toString());
+			System.out.print("Seriously! Do you want to delete it? (yes/no) ");
+			String delete = input.next().toLowerCase();
+
+			if (delete.equals("yes")) {
+				books.remove(index);
+				System.out.print("\n");
+				System.out.print("OK, The book was deleted");
+				Thread.sleep(3000);
+			}
+		} else {
+			System.out.print("\n");
+			System.out.print("Oops the book was not found");
+			Thread.sleep(3000);
+		}
+	}
+
+	public static void searchBook(ArrayList<Book> books) throws Exception {
+		System.out.print("\n\n");
+		input.nextLine();
+		System.out.print("Enter name or ISBN of book: ");
+		String search = input.nextLine();
+		int index = searchBook(books, search);
+
+		if (index > -1) {
+			System.out.print("\n\n");
+			System.out.println(books.get(index).toString());
+			System.out.print("\nIf you want to go back to the previous menu, enter a character: ");
+			input.next();
+		} else {
+			System.out.print("\n");
+			System.out.print("Oops the book was not found");
+			Thread.sleep(3000);
+		}
+	}
+
+	public static void showAllBook(ArrayList<Book> books) throws Exception {
+		if (books.size() != 0) {
+			String[] allBooks = new String[books.size()];
+			for (int i = 0; i < books.size(); i++) {
+				allBooks[i] = books.get(i).name;
+			}
+
+			Arrays.sort(allBooks);
+
+			for (int i = 0; i < allBooks.length; i++) {
+				for (int j = 0; j < books.size(); j++) {
+					if (allBooks[i].equals(books.get(j).name)) {
+						System.out.print("\n");
+						System.out.println(books.get(j).toString());
+					}
+				}
+			}
+
+			System.out.print("\nIf you want to go back to the previous menu, enter a character: ");
+			input.next();
+		} else {
+			System.out.print("\n");
+			System.out.print("We don't have any books");
+			Thread.sleep(3000);
+		}
+	}
+
+	// menu book management
+	public static void menu(ArrayList<Book> books) throws Exception {
+		menuLoop: while (true) {
+			System.out.print("\n\n\n");
+			System.out.print("1,1) Add new book \n1,2) Edit book \n1,3) Delete book \n1,4) Search book"
+					+ "\n1,5) Show books \n1,6) Back \n\nEnter your choice: ");
+			int choose = input.nextInt();
+
+			switch (choose) {
+				case 1:
+					addBook(books);
 					break;
-				case 2 :
-					editInformation();
+				case 2:
+					editBook(books);
 					break;
 				case 3:
-					deleteBook();
+					deleteBook(books);
 					break;
 				case 4:
-					searchBook();
+					searchBook(books);
 					break;
 				case 5:
-					showBooks();
+					showAllBook(books);
 					break;
-					
-			 }
-		
+				case 6:
+					break menuLoop;
+			}
 		}
-		
 	}
-	
 }
-	
-
-
