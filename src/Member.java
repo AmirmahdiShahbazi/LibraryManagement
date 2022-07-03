@@ -2,151 +2,172 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Member {
+	static Scanner input = new Scanner(System.in);
+
 	private String name;
+	private String family;
 	private String nationalCode;
 	private String phoneNumber;
-	private int numberOfMembers;
-	private String specifications;
-	private ArrayList list=new ArrayList();
-	
+
 	public Member() {
-		
-	}
-	//TODO setter
-	public Member(String name, String nationalCode,String phoneNumber) {
-		this.name=name;
-		this.nationalCode=nationalCode;
-		this.phoneNumber=phoneNumber;
-		
-	//TODO getter methods							
-	}
-	public String getName() {
-		return name;
-	}
-	
-	public String getNationalCode() {
-		return nationalCode;
-	}
-	
-	public String getPhoneNumber() {
-		return phoneNumber;
-	}
-	
-	//TODO number of members
-	public int getingNumberOfMembers() {
-		Scanner inp=new Scanner(System.in);
-		System.out.print("enter number of members: ");	
-		numberOfMembers=inp.nextInt();
-		return numberOfMembers;
-		
-		
-		
-	}
-	
-	//TODO add new member
-	public void addNewMember() {
-		String str="";
-		getingNumberOfMembers();
-		Member[] member=new Member[numberOfMembers];
-		for(int i=0;i<numberOfMembers;i++) {
-			Scanner inp=new Scanner(System.in);
-			System.out.print("enter members name: ");
-			String name=inp.next();
-			System.out.print("enter members national code: ");
-			String nationalCode=inp.next();
-			System.out.print("enter phone number: ");
-			String phoneNumber=inp.next();
-			member[i] =new Member(name,nationalCode,phoneNumber);
-			specifications=member[i].getName()+member[i].nationalCode+member[i].phoneNumber;			
-			if(str.contains(specifications))
-			{
-				System.out.println("specifications already registered\n"+ "you can chnge specifications by edit option ");
-			}
-			else {
-				System.out.println(specifications);
-				str+=specifications;
-			}			
-			list.add(specifications);
-		
-		}
-		
-		
-	}
-	//TODO edit information
-	public void editInformation() {
-		Scanner inp=new Scanner(System.in);
-		System.out.print("enter national code: ");
-		String edit=inp.next();
-		for(int i=0;i<numberOfMembers;i++) {
-			if(((String) list.get(i)).contains(edit)) {
-				System.out.println(list.get(i));				
-				System.out.print("enter Members name: ");
-				String name=inp.next();
-				System.out.print("enter members national code: ");
-				String natioalCode=inp.next();
-				System.out.print("enter members phone number ");
-				String phoneNumber=inp.next();
-				}
-		}
-	
 
 	}
-	//TODO search member
-	public void searchMember() {
-		Scanner inp=new Scanner(System.in);
-		System.out.print("enter national code: ");
-		String search=inp.next();
-		for(int i=0;i<numberOfMembers;i++) {
-			if(((String) list.get(i)).contains(search)) 
-				System.out.println(list.get(i));
-		
-		}
-		
-		
-		
-		
+
+	public Member(String name, String family, String nationalCode, String phoneNumber) {
+		this.name = name;
+		this.family = family;
+		this.nationalCode = nationalCode;
+		this.phoneNumber = phoneNumber;
+
 	}
-	
-	
-	
-	
-	//TODO menu
-	public void menu() throws Exception {
-		while(true) {
-			System.out.print("1_add new member\n" + "2_edit members information\n"+ "3_search member\n "
-		+"enter your chioce: ");
-			Scanner inp=new Scanner(System.in);
-			int choose=inp.nextInt();
-			switch(choose) {
-				case 1 :
-					addNewMember();
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public void setFamily(String family) {
+		this.family = family;
+	}
+
+	public void setNationalCode(String nationalCode) {
+		this.nationalCode = nationalCode;
+	}
+
+	public void setPhoneNumber(String phoneNumber) {
+		this.phoneNumber = phoneNumber;
+	}
+
+	@Override
+	public String toString() {
+		String output = String.format(
+				"Member name: %s \nMember family: %s \nMember national code: %s \nMember phone: %s \n",
+				name, family, nationalCode, phoneNumber);
+		return output;
+	}
+
+	// static method
+	public static int searchMember(ArrayList<Member> members, String search) {
+
+		for (int i = 0; i < members.size(); i++) {
+			String name = members.get(i).name.toLowerCase();
+			String family = members.get(i).family.toLowerCase();
+			String nationalCode = members.get(i).nationalCode;
+
+			if (name.equals(search.toLowerCase()) || family.equals(search.toLowerCase())
+					|| nationalCode.equals(search)) {
+				return i;
+			}
+		}
+
+		return -1;
+	}
+
+	public static void addMember(ArrayList<Member> members) throws Exception {
+		System.out.print("\n\n");
+		input.nextLine();
+		System.out.print("Member name: ");
+		String name = input.nextLine();
+
+		System.out.print("Member family: ");
+		String family = input.nextLine();
+
+		System.out.print("Member national code: ");
+		String nationalCode = input.next();
+
+		System.out.print("Member phone: ");
+		String phoneNumber = input.next();
+
+		if (searchMember(members, name) == -1) {
+			Member m1 = new Member(name, family, nationalCode, phoneNumber);
+			members.add(m1);
+
+			System.out.print("\n");
+			System.out.print("The member was added");
+			Thread.sleep(3000);
+		} else {
+			System.out.print("\n");
+			System.out.print("This member exists");
+			Thread.sleep(3000);
+		}
+	}
+
+	public static void editInformation(ArrayList<Member> members) throws Exception {
+		System.out.print("\n\n");
+		input.nextLine();
+		System.out.print("Enter national code: ");
+		String search = input.nextLine();
+		int index = searchMember(members, search);
+
+		if (index > -1) {
+			System.out.print("\n\n");
+			System.out.println(members.get(index).toString());
+
+			System.out.print("\n");
+			System.out.print("New name: ");
+			members.get(index).setName(input.nextLine());
+
+			System.out.print("New family: ");
+			members.get(index).setFamily(input.nextLine());
+
+			System.out.print("New national code: ");
+			members.get(index).setNationalCode(input.next());
+
+			System.out.print("New phone number: ");
+			members.get(index).setPhoneNumber(input.next());
+
+			System.out.print("\n");
+			System.out.print("The member was updated");
+			Thread.sleep(3000);
+		} else {
+			System.out.print("\n");
+			System.out.print("Oops the member was not found");
+			Thread.sleep(3000);
+		}
+	}
+
+	public static void searchMember(ArrayList<Member> members) throws Exception {
+		System.out.print("\n\n");
+		input.nextLine();
+		System.out.print("Enter name or family or national code: ");
+		String search = input.nextLine();
+		int index = searchMember(members, search);
+
+		if (index > -1) {
+			System.out.print("\n\n");
+			System.out.println(members.get(index).toString());
+			System.out.print("\nIf you want to go back to the previous menu, enter a character: ");
+			input.next();
+		} else {
+			System.out.print("\n");
+			System.out.print("Oops the book was not found");
+			Thread.sleep(3000);
+		}
+	}
+
+	// menu
+	public static void menu(ArrayList<Member> members) throws Exception {
+		menuLoop: while (true) {
+			System.out.print("\n\n\n");
+			System.out.print("2,1) Add new member \n2,2) Edit member \n2,3) Search member \n2,4) Back"
+					+ "\n\nEnter your choice: ");
+			int choose = input.nextInt();
+
+			switch (choose) {
+				case 1:
+					addMember(members);
 					break;
-				case 2 :
-					editInformation();
-					break;									
+				case 2:
+					editInformation(members);
+					break;
 				case 3:
-					searchMember();
+					searchMember(members);
 					break;
-				
-					
-			 }
-					
-					
-			
-			
-			
-			
-			
-			
-			
+				case 4:
+					break menuLoop;
+			}
+
 		}
-	
-		
-		
-		
+
 	}
-		
-		
 
 }
-
