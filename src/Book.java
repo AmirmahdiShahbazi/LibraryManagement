@@ -13,8 +13,13 @@ public class Book {
 	protected int pages;
 	protected int price;
 
-	public Book() {
-
+	public Book(String name, String author, int year, String isbn, int pages, int price) {
+		this.name = name;
+		this.author = author;
+		this.year = year;
+		this.isbn = isbn;
+		this.pages = pages;
+		this.price = price;
 	}
 
 	public Book(String name, String author, int year, String isbn, int inventory, int pages, int price) {
@@ -63,14 +68,59 @@ public class Book {
 		return output;
 	}
 
+	public void editBook(ArrayList<Book> books, int index) throws Exception {
+		System.out.print("\n\n");
+		System.out.println(books.get(index).toString());
+
+		System.out.print("\n");
+		System.out.print("New book name: ");
+		String name = input.nextLine();
+
+		System.out.print("New author name: ");
+		String author = input.nextLine();
+
+		System.out.print("New year of publication: ");
+		int year = input.nextInt();
+
+		System.out.print("New ISBN number: ");
+		String isbn = input.next();
+
+		System.out.print("New book inventory: ");
+		int inventory = input.nextInt();
+
+		System.out.print("New book pages: ");
+		int pages = input.nextInt();
+
+		System.out.print("New book price: ");
+		int price = input.nextInt();
+
+		if ((searchBook(books, name) == -1 && searchBook(books, isbn) == -1) || searchBook(books, isbn) == -1) {
+			books.get(index).setName(name);
+			books.get(index).setAuthor(author);
+			books.get(index).setYear(year);
+			books.get(index).setIsbn(isbn);
+			books.get(index).setInventory(inventory);
+			books.get(index).setPages(pages);
+			books.get(index).setPrice(price);
+
+			System.out.print("\n");
+			System.out.print("The book was updated");
+			Thread.sleep(3000);
+		} else {
+			System.out.print("\n");
+			System.out.print("This book exists");
+			Thread.sleep(3000);
+		}
+	}
+
 	// static method
 	public static int searchBook(ArrayList<Book> books, String search) {
 
 		for (int i = 0; i < books.size(); i++) {
-			String name = books.get(i).name.toLowerCase();
+			String name = books.get(i).name;
 			String ISBN = books.get(i).isbn;
 
-			if (name.equals(search.toLowerCase()) || ISBN.equals(search)) {
+			if (name.equalsIgnoreCase(search) || ISBN.equals(search)) {
 				return i;
 			}
 		}
@@ -102,7 +152,7 @@ public class Book {
 		System.out.print("Book price: ");
 		int price = input.nextInt();
 
-		if (searchBook(books, name) == -1) {
+		if ((searchBook(books, name) == -1 && searchBook(books, isbn) == -1) || searchBook(books, isbn) == -1) {
 			Book b1 = new Book(name, author, year, isbn, inventory, pages, price);
 			books.add(b1);
 
@@ -116,52 +166,8 @@ public class Book {
 		}
 	}
 
-	public static void editBook(ArrayList<Book> books) throws Exception {
-		System.out.print("\n\n");
-		input.nextLine();
-		System.out.print("Enter name or ISBN of book: ");
-		String search = input.nextLine();
-		int index = searchBook(books, search);
-
-		if (index > -1) {
-			System.out.print("\n\n");
-			System.out.println(books.get(index).toString());
-
-			System.out.print("\n");
-			System.out.print("New book name: ");
-			books.get(index).setName(input.nextLine());
-
-			System.out.print("New author name: ");
-			books.get(index).setAuthor(input.nextLine());
-
-			System.out.print("New year of publication: ");
-			books.get(index).setYear(input.nextInt());
-
-			System.out.print("New ISBN number: ");
-			books.get(index).setIsbn(input.next());
-
-			System.out.print("New book inventory: ");
-			books.get(index).setInventory(input.nextInt());
-
-			System.out.print("New book pages: ");
-			books.get(index).setPages(input.nextInt());
-
-			System.out.print("New book price: ");
-			books.get(index).setPrice(input.nextInt());
-
-			System.out.print("\n");
-			System.out.print("The book was updated");
-			Thread.sleep(3000);
-		} else {
-			System.out.print("\n");
-			System.out.print("Oops the book was not found");
-			Thread.sleep(3000);
-		}
-	}
-
 	public static void deleteBook(ArrayList<Book> books) throws Exception {
 		System.out.print("\n\n");
-		input.nextLine();
 		System.out.print("Enter name or ISBN of book: ");
 		String search = input.nextLine();
 		int index = searchBook(books, search);
@@ -170,9 +176,9 @@ public class Book {
 			System.out.print("\n\n");
 			System.out.println(books.get(index).toString());
 			System.out.print("Seriously! Do you want to delete it? (yes/no) ");
-			String delete = input.next().toLowerCase();
+			String delete = input.next();
 
-			if (delete.equals("yes")) {
+			if (delete.equalsIgnoreCase("yes")) {
 				books.remove(index);
 				System.out.print("\n");
 				System.out.print("OK, The book was deleted");
@@ -241,10 +247,35 @@ public class Book {
 
 			switch (choose) {
 				case 1:
-					addBook(books);
+					while (true) {
+						System.out.print("\n\n");
+						System.out.print("1) Book or 2) EBook: ");
+						int type = input.nextInt();
+						if (type == 1) {
+							addBook(books);
+							break;
+						} else if (type == 2) {
+							EBook.addBook(books);
+							break;
+						}
+					}
 					break;
 				case 2:
-					editBook(books);
+
+					System.out.print("\n\n");
+					input.nextLine();
+					System.out.print("Enter name or ISBN of book: ");
+					String search = input.nextLine();
+					int index = searchBook(books, search);
+
+					if (index > -1) {
+						books.get(index).editBook(books, index);
+					} else {
+						System.out.print("\n");
+						System.out.print("Oops the book was not found");
+						Thread.sleep(3000);
+					}
+
 					break;
 				case 3:
 					deleteBook(books);

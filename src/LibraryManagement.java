@@ -10,7 +10,7 @@ public class LibraryManagement {
 
 		while (true) {
 			System.out.print("\n\n\n");
-			System.out.print("1) Book management \n2) Member management \n3) Book loan \n4) Lottery \n5) Exit \n\n");
+			System.out.print("1) Book management \n2) Member management \n3) Book lending \n4) Lottery \n5) Exit \n\n");
 			System.out.print("Enter your choice: ");
 			int chooseMenu = input.nextInt();
 			menu(chooseMenu, books, members);
@@ -23,11 +23,9 @@ public class LibraryManagement {
 			case 1:
 				Book.menu(books);
 				break;
-
 			case 2:
 				Member.menu(members);
 				break;
-
 			case 3:
 				break;
 
