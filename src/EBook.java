@@ -66,7 +66,7 @@ public class EBook extends Book {
         System.out.print("New book size: ");
         int size = input.nextInt();
 
-        if ((searchBook(books, name) == -1 && searchBook(books, isbn) == -1) || searchBook(books, isbn) == -1) {
+        if (searchBook(books, isbn) == -1) {
             books.get(index).setName(name);
             books.get(index).setAuthor(author);
             books.get(index).setYear(year);
@@ -113,7 +113,7 @@ public class EBook extends Book {
         System.out.print("Book size: ");
         int size = input.nextInt();
 
-        if ((searchBook(books, name) == -1 && searchBook(books, isbn) == -1) || searchBook(books, isbn) == -1) {
+        if (searchBook(books, isbn) == -1) {
             Book b1 = new EBook(name, author, year, isbn, pages, price, format, size);
             books.add(b1);
 

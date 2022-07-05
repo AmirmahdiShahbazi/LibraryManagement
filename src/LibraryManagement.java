@@ -7,17 +7,19 @@ public class LibraryManagement {
 		Scanner input = new Scanner(System.in);
 		ArrayList<Book> books = new ArrayList<Book>();
 		ArrayList<Member> members = new ArrayList<Member>();
+		ArrayList<Lending> lendings = new ArrayList<Lending>();
 
 		while (true) {
 			System.out.print("\n\n\n");
-			System.out.print("1) Book management \n2) Member management \n3) Book lending \n4) Lottery \n5) Exit \n\n");
+			System.out.print("1) Book management \n2) Member management \n3) Book lending \n4) Lottery \n0) Exit \n\n");
 			System.out.print("Enter your choice: ");
 			int chooseMenu = input.nextInt();
-			menu(chooseMenu, books, members);
+			menu(chooseMenu, books, members, lendings);
 		}
 	}
 
-	public static void menu(int number, ArrayList<Book> books, ArrayList<Member> members) throws Exception {
+	public static void menu(int number, ArrayList<Book> books, ArrayList<Member> members,
+			ArrayList<Lending> lendings) throws Exception {
 
 		switch (number) {
 			case 1:
@@ -27,12 +29,11 @@ public class LibraryManagement {
 				Member.menu(members);
 				break;
 			case 3:
+				Lending.menu(books, members, lendings);
 				break;
-
 			case 4:
 				break;
-
-			case 5:
+			case 0:
 				System.exit(0);
 				break;
 		}

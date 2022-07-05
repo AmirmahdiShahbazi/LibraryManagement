@@ -48,6 +48,10 @@ public class Book {
 		this.isbn = isbn;
 	}
 
+	public int getInventory() {
+		return inventory;
+	}
+
 	public void setInventory(int inventory) {
 		this.inventory = inventory;
 	}
@@ -94,7 +98,7 @@ public class Book {
 		System.out.print("New book price: ");
 		int price = input.nextInt();
 
-		if ((searchBook(books, name) == -1 && searchBook(books, isbn) == -1) || searchBook(books, isbn) == -1) {
+		if (searchBook(books, isbn) == -1) {
 			books.get(index).setName(name);
 			books.get(index).setAuthor(author);
 			books.get(index).setYear(year);
@@ -152,7 +156,7 @@ public class Book {
 		System.out.print("Book price: ");
 		int price = input.nextInt();
 
-		if ((searchBook(books, name) == -1 && searchBook(books, isbn) == -1) || searchBook(books, isbn) == -1) {
+		if (searchBook(books, isbn) == -1) {
 			Book b1 = new Book(name, author, year, isbn, inventory, pages, price);
 			books.add(b1);
 
@@ -168,11 +172,12 @@ public class Book {
 
 	public static void deleteBook(ArrayList<Book> books) throws Exception {
 		System.out.print("\n\n");
+		input.nextLine();
 		System.out.print("Enter name or ISBN of book: ");
 		String search = input.nextLine();
 		int index = searchBook(books, search);
 
-		if (index > -1) {
+		if (index != -1) {
 			System.out.print("\n\n");
 			System.out.println(books.get(index).toString());
 			System.out.print("Seriously! Do you want to delete it? (yes/no) ");
@@ -198,7 +203,7 @@ public class Book {
 		String search = input.nextLine();
 		int index = searchBook(books, search);
 
-		if (index > -1) {
+		if (index != -1) {
 			System.out.print("\n\n");
 			System.out.println(books.get(index).toString());
 			System.out.print("\nIf you want to go back to the previous menu, enter a character: ");
@@ -242,24 +247,29 @@ public class Book {
 		menuLoop: while (true) {
 			System.out.print("\n\n\n");
 			System.out.print("1,1) Add new book \n1,2) Edit book \n1,3) Delete book \n1,4) Search book"
-					+ "\n1,5) Show books \n1,6) Back \n\nEnter your choice: ");
+					+ "\n1,5) Show books \n1,0) Back \n\nEnter your choice: ");
 			int choose = input.nextInt();
 
 			switch (choose) {
 				case 1:
-					while (true) {
+
+					menu: while (true) {
 						System.out.print("\n\n");
-						System.out.print("1) Book or 2) EBook: ");
+						System.out.print("1) Book \n2) EBook \n0) Back \n\nEnter your choice: ");
 						int type = input.nextInt();
-						if (type == 1) {
-							addBook(books);
-							break;
-						} else if (type == 2) {
-							EBook.addBook(books);
-							break;
+						switch (type) {
+							case 1:
+								addBook(books);
+								break menu;
+							case 2:
+								EBook.addBook(books);
+								break menu;
+							case 0:
+								break menu;
 						}
 					}
 					break;
+
 				case 2:
 
 					System.out.print("\n\n");
@@ -268,15 +278,15 @@ public class Book {
 					String search = input.nextLine();
 					int index = searchBook(books, search);
 
-					if (index > -1) {
+					if (index != -1) {
 						books.get(index).editBook(books, index);
 					} else {
 						System.out.print("\n");
 						System.out.print("Oops the book was not found");
 						Thread.sleep(3000);
 					}
-
 					break;
+
 				case 3:
 					deleteBook(books);
 					break;
@@ -286,7 +296,7 @@ public class Book {
 				case 5:
 					showAllBook(books);
 					break;
-				case 6:
+				case 0:
 					break menuLoop;
 			}
 		}

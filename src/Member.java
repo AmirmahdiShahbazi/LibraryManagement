@@ -29,6 +29,10 @@ public class Member {
 		this.family = family;
 	}
 
+	public String getNationalCode() {
+		return nationalCode;
+	}
+
 	public void setNationalCode(String nationalCode) {
 		this.nationalCode = nationalCode;
 	}
@@ -49,11 +53,11 @@ public class Member {
 	public static int searchMember(ArrayList<Member> members, String search) {
 
 		for (int i = 0; i < members.size(); i++) {
-			String name = members.get(i).name.toLowerCase();
-			String family = members.get(i).family.toLowerCase();
+			String name = members.get(i).name;
+			String family = members.get(i).family;
 			String nationalCode = members.get(i).nationalCode;
 
-			if (name.equals(search.toLowerCase()) || family.equals(search.toLowerCase())
+			if (name.equalsIgnoreCase(search) || family.equalsIgnoreCase(search)
 					|| nationalCode.equals(search)) {
 				return i;
 			}
@@ -77,7 +81,7 @@ public class Member {
 		System.out.print("Member phone: ");
 		String phoneNumber = input.next();
 
-		if (searchMember(members, name) == -1) {
+		if (searchMember(members, nationalCode) == -1) {
 			Member m1 = new Member(name, family, nationalCode, phoneNumber);
 			members.add(m1);
 
@@ -98,7 +102,7 @@ public class Member {
 		String search = input.nextLine();
 		int index = searchMember(members, search);
 
-		if (index > -1) {
+		if (index != -1) {
 			System.out.print("\n\n");
 			System.out.println(members.get(index).toString());
 
@@ -132,7 +136,7 @@ public class Member {
 		String search = input.nextLine();
 		int index = searchMember(members, search);
 
-		if (index > -1) {
+		if (index != -1) {
 			System.out.print("\n\n");
 			System.out.println(members.get(index).toString());
 			System.out.print("\nIf you want to go back to the previous menu, enter a character: ");
@@ -148,7 +152,7 @@ public class Member {
 	public static void menu(ArrayList<Member> members) throws Exception {
 		menuLoop: while (true) {
 			System.out.print("\n\n\n");
-			System.out.print("2,1) Add new member \n2,2) Edit member \n2,3) Search member \n2,4) Back"
+			System.out.print("2,1) Add new member \n2,2) Edit member \n2,3) Search member \n2,0) Back"
 					+ "\n\nEnter your choice: ");
 			int choose = input.nextInt();
 
@@ -162,7 +166,7 @@ public class Member {
 				case 3:
 					searchMember(members);
 					break;
-				case 4:
+				case 0:
 					break menuLoop;
 			}
 
