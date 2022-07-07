@@ -31,8 +31,6 @@ public class LibraryManagement {
 			case 3:
 				Lending.menu(books, members, lendings);
 				break;
-			case 4:
-				break;
 			case 0:
 				System.exit(0);
 				break;

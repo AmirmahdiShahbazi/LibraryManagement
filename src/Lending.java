@@ -45,7 +45,7 @@ public class Lending {
 
         if (Member.searchMember(members, nationalCode) != -1 && indexBook != -1) {
 
-            int currentInventory = books.get(Book.searchBook(books, isbn)).getInventory();
+            int currentInventory = books.get(indexBook).getInventory();
 
             if (currentInventory != 0) {
                 books.get(indexBook).setInventory(currentInventory - 1);
